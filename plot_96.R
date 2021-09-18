@@ -85,6 +85,7 @@ font_add_google(family="David-Libre", "David Libre")
 font_add_google(family="Tinos", "Tinos")
 font_add_google(family="M-PLUS-Rounded-1c", "M PLUS Rounded 1c")
 font_add_google(family="Amatic-SC", "Amatic SC")
+font_add_google(family="Rubik", "Rubik")
 
 showtext_auto()
 
