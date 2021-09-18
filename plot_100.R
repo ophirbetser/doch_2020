@@ -109,7 +109,7 @@ choose_font_family <- 'Bona-Nova'
 
 
 
-file <- 'plot_for_100_2020_1K.png'
+file <- 'plot/plot_for_100_2020_1K.png'
 ragg::agg_png(file,
               width = 1920,
               height = 1080,

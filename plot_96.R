@@ -128,7 +128,7 @@ plot_for_96 <-
 
 
 
-file <- 'plot_for_96_2020_1K.png'
+file <- 'plot/plot_for_96_2020_1K.png'
 ragg::agg_png(file,
         width = 1920,
         height = 1080,
@@ -242,7 +242,7 @@ plot_for_96 <-
   easy_remove_y_axis(what = c("line", "ticks"))
 
 
-file <- 'plot_for_96_2020_4K.png'
+file <- 'plot/plot_for_96_2020_4K.png'
 ragg::agg_png(file,
               width = 3840,
               height = 2160,
