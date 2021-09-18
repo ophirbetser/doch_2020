@@ -87,7 +87,22 @@ forcats::fct_relevel(data_for_98$dirog_kiboz,
                      after = Inf)
 
 
-  
+
+data_for_98$lablels_vec <- 
+  c("1%", "2%", "3%",
+    "1%", "2%", "3%",
+    "1%", "2%", "3%",
+    "1%", "2%", "3%",
+    "1%", "2%", "3%",
+    "1%", "2%",
+    "1%", "2%", "3%",
+    "1%", "2%", "3%",
+    "1%", "2%", "3%",
+    "1%", "2%", "3%",
+    "1%", "2%", "3%",
+    "1%", "2%")
+
+
 plot_for_98 <- 
   data_for_98 %>% 
   ggplot() + 
@@ -150,12 +165,13 @@ ragg::agg_png(file,
               res = 200,
               units = 'px')
 
+
 plot_for_98 +
   geom_label(
     aes(
       x = dirog_kiboz,
       y = 0,
-      label = "2%"
+      label = lablels_vec
       ), 
     fill = "#EED5A3",
     color = "black",
