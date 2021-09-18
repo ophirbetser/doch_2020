@@ -45,6 +45,34 @@ data_for_97$label_sum_misra_2019 <-
          data_for_97$sum_halki_misra / 12,
          NA)
 
+data_for_97$dirog_kiboz_for_97 <- 
+  stringi::stri_reverse(data_for_97$dirog_kiboz_for_97)
+
+
+data_for_97$label_text <- 
+  glue(
+    '{scales::percent(data_for_97$label_p_2020, accuracy = 1)} | {scales::comma(data_for_97$label_sum_misra_2020, accuracy = 1)}'
+    )
+
+data_for_97$label_text <- 
+ifelse(
+  str_detect(data_for_97$label_text, "NA"),
+  NA,
+  data_for_97$label_text
+)
+
+data_for_97$label_vjust <- 
+  rep(
+    c(
+     0.5 ,
+     1,
+     0.5, 
+     -1,
+     0.5 
+    ),
+    times  = 9
+  )
+
 
 plot_for_97 <- 
   data_for_97 %>% 
@@ -59,30 +87,29 @@ plot_for_97 <-
                      breaks = seq(0, 0.4, 0.05),
                      labels= scales::percent(seq(0, 0.4, 0.05),
                                              accuracy = 1)) +
-  geom_text(aes(label=scales::percent(label_p_2019,
-                                      accuracy = 1)),
-            hjust = -0.1) +
-  geom_text(aes(label=scales::comma(label_sum_misra_2019,
-                                    accuracy = 1,
-                                    prefix = " | ")),
-            hjust = -0.6) +
-  
+  geom_text(aes(label= label_text),
+            hjust = -0.1,
+            vjust = data_for_97$label_vjust,
+            size = 6,
+            show.legend = F
+            ) +
+
   theme_classic() + 
-  scale_fill_manual(values = c("#273746", "#45B39D")) +
+  #scale_fill_manual(values = c("#273746", "#45B39D")) +
   coord_cartesian(clip = 'off') +
   easy_remove_y_axis(what = c("line", "ticks")) +
   scale_color_manual(values = c("#707B7C", "#58D68D", "#239B56", "#2874A6", "#154360")) 
 
 
-
-
+data_for_97
+plot_for_97
 
 title_size = 40
 subtitle_size = 30
 x_axis_size = 15
 y_axis_size = 15
-geom_text_size = 20
-caption_size = 10
+geom_text_size = 15
+caption_size = 20
 
 title_text = "שיעור גידול המשרות לפי שנים" %>% stringi::stri_reverse()
 subtitle_text = paste0('2009-2019 ,', stringi::stri_reverse('מערכת הבריאות הממשלתית'))
@@ -117,22 +144,22 @@ plot_for_97 +
   theme(
     plot.title = 
       element_text(
-        family = choose_font_family, size = title_size, hjust = 1, 
+        family = 'Rubik', size = title_size, hjust = 1, 
         color = "black", face = "bold"
       ),
     plot.subtitle = 
       element_text(
-        family = choose_font_family, size = subtitle_size, hjust = 1, 
+        family = 'Rubik', size = subtitle_size, hjust = 1, 
         color = "black", face = "bold"
       ),
     axis.text.x = 
       element_text(
-        family = 'David-Libre', size = x_axis_size, 
+        family = 'Rubik', size = x_axis_size, 
         color = "black", face = "bold"
       ),
     axis.text.y = 
       element_text(
-        family = 'David-Libre', size = y_axis_size, 
+        family = 'Rubik', size = y_axis_size, 
         color = "black", face = "bold"
       ),
     plot.caption = 
@@ -142,7 +169,7 @@ plot_for_97 +
       ),
     legend.text = 
       element_text(
-        family = 'David-Libre', size = caption_size, 
+        family = 'Rubik', size = geom_text_size, 
         color = "black"
       ),
     
@@ -150,7 +177,7 @@ plot_for_97 +
     plot.margin = margin(c(5,30,20,0)),
     legend.position = "bottom",
     legend.title = element_blank(),
-    legend.background = element_rect(fill = NA, colour = "black", linetype = "solid")
+    legend.background = element_rect(fill = NA, colour = NA)
     )
 
 
