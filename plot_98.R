@@ -195,7 +195,7 @@ plot_for_98 +
         margin = margin(t = 12),
         family = 'Rubik', size = x_axis_size, 
         color = "gray30",
-        angle = 90, hjust = 1
+        angle = 90, hjust = 1, vjust = 0.5
       ),
     axis.text.y = 
       element_text(

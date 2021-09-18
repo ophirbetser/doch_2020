@@ -138,7 +138,7 @@ plot_for_100 +
     plot.subtitle = 
       element_text(
         family = 'Rubik', size = subtitle_size, hjust = 1, 
-        color = "black", face = "bold"
+        color = "black", face = "bold"   
       ),
     axis.text.x = 
       element_markdown(
