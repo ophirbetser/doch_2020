@@ -192,7 +192,6 @@ plot_for_102 +
 invisible(dev.off())
 knitr::include_graphics(file)
 
-asdasd
 
 
 
