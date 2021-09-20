@@ -67,7 +67,7 @@ plot_for_102 <-
            position = "fill",
            width = 0.7) +
   geom_point(aes(x = dirog_kiboz, y = mean_h),
-             color = "#D4AC0D",
+             color = "#F0C92C",
              show.legend = F,
              size = 3) +
   #geom_text(aes(label = scales::percent(ratio, 1)),
@@ -86,7 +86,7 @@ plot_for_102 <-
 
 
 title_size = 32
-subtitle_size = 25
+subtitle_size = 22
 x_axis_size = 15
 y_axis_size = 15
 geom_text_size = 10
@@ -115,7 +115,7 @@ plot_for_102 +
       y = mean_h,
       label = scales::percent(mean_h, accuracy = 1)  
     ), 
-    fill = "#EED5A3",
+    fill = "#F0C92C",
     color = "black",
     #fontface = "bold",
     size = 5.5,
@@ -124,7 +124,8 @@ plot_for_102 +
     label.size = 0,
     nudge_y = 0.045
   ) +
-  
+  geom_segment(x =20.1, xend = -0.1, y = 1.17, yend = 1.17) +
+
   # use the 's_gg_plot_parms' snippet
   # and 's_gg_google_fonts'
     labs(
@@ -141,7 +142,9 @@ plot_for_102 +
         plot.title = 
           element_text(
             family = 'Rubik', size = title_size, hjust = 1, 
-            color = "black", face = "bold"
+            color = "black", face = "bold",
+            margin=margin(0,0,8,0)
+            
           ),
         plot.subtitle = 
           element_text(
@@ -163,7 +166,7 @@ plot_for_102 +
         plot.caption = 
           element_text(
             family = 'Rubik', size = caption_size, 
-            color = "black", face = "bold"
+            color = "black"
           ),
         legend.text = 
           element_text(
