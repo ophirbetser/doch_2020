@@ -194,4 +194,3 @@ plot_for_106 +
 invisible(dev.off())
 knitr::include_graphics(file)
 
-
