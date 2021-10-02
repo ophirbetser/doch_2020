@@ -143,14 +143,14 @@ plot_for_102 +
           element_text(
             family = 'Rubik', size = title_size, hjust = 1, 
             color = "black", face = "bold",
-            margin=margin(0,0,8,0)
+            margin=margin(0,0,2,0)
             
           ),
         plot.subtitle = 
           element_text(
             family = 'Rubik', size = subtitle_size, hjust = 1, 
             color = "black",
-            margin=margin(0,0,10,0)
+            margin=margin(0,0,8,0)
           ),
         axis.text.x = 
           element_text(
