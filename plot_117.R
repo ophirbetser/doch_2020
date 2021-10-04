@@ -182,6 +182,8 @@ plot_for_117 <-
     
     plot.margin = 
       margin(
+        t = 3,
+        r = 5,
         b = 3
       ),
     
