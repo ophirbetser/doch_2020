@@ -1,0 +1,1075 @@
+---
+title: "מיקום מקרא בגרפי גגפלוט"
+date: "`r Sys.Date()`"
+output:
+  rmdformats::material:
+    highlight: kate
+---
+
+
+```{r setup, include=FALSE}
+library(knitr)
+library(rmdformats)
+
+pacman::p_load(
+          pacman, 
+          data.table,
+          tidyverse,
+          patchwork,
+          forcats, 
+          ggeasy,
+          visdat,
+          ggnewscale,
+          openxlsx,
+          DT, 
+          shiny, 
+          esquisse)
+
+
+## Global options
+options(max.print="75")
+opts_chunk$set(echo=FALSE,
+	             cache=TRUE,
+               prompt=FALSE,
+               tidy=TRUE,
+               comment=NA,
+               message=FALSE,
+               warning=FALSE)
+opts_knit$set(width=100)
+```
+
+<html dir="rtl">
+
+
+```{text}
+<div style="text-align:left;" dir="ltr">
+
+</div>
+  
+<html dir="rtl">
+```
+
+
+# גרף הבסיס
+
+<div style="text-align:left;" dir="ltr">
+```{r echo=TRUE}
+g <- 
+ggplot(iris) +
+  aes(
+    x = Sepal.Length,
+    y = Sepal.Width,
+    color = Species
+    ) +
+  geom_point() +
+  theme_classic()
+
+g
+```
+</div>
+
+# שינוי מיקום בסיסי
+
+### למעלה
+
+<div style="text-align:left;" dir="ltr">
+```{r echo=TRUE}
+g +
+  theme(
+    legend.position = "top"
+  )
+```
+</div>
+
+
+### למטה
+
+<div style="text-align:left;" dir="ltr">
+```{r echo=TRUE}
+g +
+  theme(
+    legend.position = "bottom"
+  )
+```
+</div>
+
+
+### שמאל
+
+<div style="text-align:left;" dir="ltr">
+```{r echo=TRUE}
+g +
+  theme(
+    legend.position = "left"
+  )
+```
+</div>
+
+
+# שינוי כותרת המקרא
+
+
+<div style="text-align:left;" dir="ltr">
+```{r echo=TRUE}
+g +
+  theme(
+    legend.position = "left"
+  ) +
+  labs(
+    color = "hello"
+  )
+```
+</div>
+
+### ללא כותרת כלל
+
+<div style="text-align:left;" dir="ltr">
+```{r echo=TRUE}
+g +
+  theme(
+    legend.position = "left"
+  ) +
+  labs(
+    color = ""
+  )
+```
+</div>
+
+
+# שינוי גודל החיווים
+
+לא מוכן
+
+<div style="text-align:left;" dir="ltr">
+```{r echo=TRUE}
+#g +
+#  theme(
+#    legend.position = "left",
+#    legend.key.height= unit(10, 'cm'),
+#    legend.key.width= unit(10, 'cm')
+#  ) +
+#  labs(
+#    color = ""
+#  )
+#
+```
+</div>
+
+
+# שינוי המקרא לאורך או לרוחב
+
+לא מוכן
+
+<div style="text-align:left;" dir="ltr">
+```{r echo=TRUE}
+g +
+  theme(
+    legend.box = "vertical"
+  ) +
+  labs(
+    color = ""
+  )
+
+```
+</div>
+
+<div style="text-align:left;" dir="ltr">
+```{r echo=TRUE}
+g +
+  theme(
+    legend.box = "horizontal"
+  ) +
+  labs(
+    color = ""
+  )
+
+```
+</div>
+
+
+# שינוי גודל הטקסט
+
+<div style="text-align:left;" dir="ltr">
+```{r echo=TRUE}
+g +
+  theme(
+      legend.text = 
+        element_text(
+          size=20
+          )
+  ) +
+  labs(
+    color = ""
+  )
+
+```
+</div>
+
+
+# שינוי המיקוןם של הטקסט
+
+<div style="text-align:left;" dir="ltr">
+```{r echo=TRUE}
+g +
+  labs(
+    color = ""
+  ) +
+  guides(
+    color = 
+      guide_legend(
+        label.position = "top",
+        nrow = 1
+      )
+    )
+
+
+```
+</div>
+
+<div style="text-align:left;" dir="ltr">
+```{r echo=TRUE}
+g +
+  labs(
+    color = ""
+  ) +
+  guides(
+    color = 
+      guide_legend(
+        label.position = "top",
+      )
+    )
+
+
+```
+</div>
+
+# שינוי מיקום מורכב יותר
+
+
+<div style="text-align:left;" dir="ltr">
+```{r echo=TRUE}
+g +
+  labs(
+    color = ""
+  ) +
+  guides(
+    color = 
+      guide_legend(
+        label.position = "top",
+        nrow = 1
+      )
+    ) +
+  theme(
+    legend.justification = c("right", "top")
+  )
+
+
+```
+</div>
+
+<div style="text-align:left;" dir="ltr">
+```{r echo=TRUE}
+g +
+  labs(
+    color = ""
+  ) +
+  guides(
+    color = 
+      guide_legend(
+        label.position = "top",
+        nrow = 1
+      )
+    ) +
+  theme(
+    legend.justification = c("bottom")
+  )
+
+
+```
+</div>
+
+
+<div style="text-align:left;" dir="ltr">
+```{r echo=TRUE}
+g +
+  labs(
+    color = ""
+  ) +
+  guides(
+    color = 
+      guide_legend(
+        label.position = "top",
+        nrow = 1
+      )
+    ) +
+  theme(
+    legend.position = "top",
+    legend.justification = c("left")
+  )
+
+
+```
+</div>
+
+
+
+<div style="text-align:left;" dir="ltr">
+```{r echo=TRUE}
+g +
+  labs(
+    color = ""
+  ) +
+  guides(
+    color = 
+      guide_legend(
+        label.position = "top",
+        nrow = 1
+      )
+    ) +
+  theme(
+    legend.position = "top",
+    legend.justification = c("left")
+  )
+
+
+```
+</div>
+
+
+
+
+# מקרא כפול
+
+<div style="text-align:left;" dir="ltr">
+```{r echo=TRUE}
+gg <- 
+ggplot(iris) +
+  aes(
+    x = Sepal.Length,
+    y = Sepal.Width,
+    color = Species,
+    size = Sepal.Length
+    ) +
+  geom_point() +
+  theme_classic()
+
+gg
+```
+</div>
+
+
+
+<div style="text-align:left;" dir="ltr">
+```{r echo=TRUE}
+gg +
+  labs(
+    color = "",
+    size = ""
+  )
+```
+</div>
+
+
+<div style="text-align:left;" dir="ltr">
+```{r echo=TRUE}
+gg +
+  labs(
+    color = "",
+    size = ""
+  ) +
+  
+  guides(
+    color = 
+      guide_legend(
+        label.position = "top",
+        nrow = 1
+      ),
+    size = 
+      guide_legend(
+        label.position = "top",
+        nrow = 1
+      )
+    ) +
+  theme(
+    legend.position = "right"
+  )
+```
+</div>
+
+
+
+<div style="text-align:left;" dir="ltr">
+```{r echo=TRUE}
+gg +
+  labs(
+    color = "",
+    size = ""
+  ) +
+  
+  guides(
+    color = 
+      guide_legend(
+        label.position = "top",
+        nrow = 1
+      ),
+    size = 
+      guide_legend(
+        label.position = "top",
+        nrow = 1
+      )
+    ) +
+  theme(
+    legend.position = "right",
+    legend.box = "horizontal"
+  )
+```
+</div>
+
+
+
+
+
+<div style="text-align:left;" dir="ltr">
+```{r echo=TRUE}
+gg +
+  labs(
+    color = "",
+    size = ""
+  ) +
+  
+  guides(
+    color = 
+      guide_legend(
+        label.position = "top",
+        nrow = 1
+      ),
+    size = 
+      guide_legend(
+        label.position = "top",
+        nrow = 1
+      )
+    ) +
+  theme(
+    legend.position = "top",
+    legend.box = "horizontal"
+  )
+```
+</div>
+
+
+<div style="text-align:left;" dir="ltr">
+```{r echo=TRUE}
+gg +
+  labs(
+    color = "",
+    size = ""
+  ) +
+  
+  guides(
+    color = 
+      guide_legend(
+        label.position = "top",
+        nrow = 1
+      ),
+    size = 
+      guide_legend(
+        label.position = "top",
+        nrow = 1
+      )
+    ) +
+  theme(
+    legend.position = "top",
+    legend.justification = c("left"),
+    legend.box = "horizontal"
+  )
+```
+</div>
+
+
+
+<div style="text-align:left;" dir="ltr">
+```{r echo=TRUE}
+gg +
+  labs(
+    title = "title",
+    subtitle = "subtitle",
+    color = "color",
+    size = "size"
+  ) +
+  
+  guides(
+    color = 
+      guide_legend(
+        label.position = "bottom",
+        nrow = 1,
+        title.position = "top"
+      ),
+    size = 
+      guide_legend(
+        label.position = "bottom",
+        nrow = 1,
+        title.position = "top"
+      )
+    ) +
+  theme(
+    legend.position = "top",
+    legend.justification = c("right"),
+    legend.box = "horizontal"
+  )
+```
+</div>
+
+
+<div style="text-align:left;" dir="ltr">
+```{r echo=TRUE}
+gg +
+  labs(
+    title = "title",
+    subtitle = "subtitle",
+    color = "color",
+    size = "size"
+  ) +
+  
+  guides(
+    color = 
+      guide_legend(
+        label.position = "bottom",
+        nrow = 1,
+        title.position = "top"
+      ),
+    size = 
+      guide_legend(
+        label.position = "bottom",
+        nrow = 1,
+        title.position = "top"
+      )
+    ) +
+  theme(
+    legend.position = c(0.99, 1.04),
+    legend.justification = c("right"),
+    legend.box = "horizontal"
+  )
+```
+</div>
+
+
+
+
+<div style="text-align:left;" dir="ltr">
+```{r echo=TRUE}
+gg +
+  labs(
+    title = "title",
+    subtitle = "subtitle",
+    color = "",
+    size = ""
+  ) +
+  
+  guides(
+    color = 
+      guide_legend(
+        label.position = "bottom",
+        nrow = 1,
+        title.position = "top"
+      ),
+    size = 
+      guide_legend(
+        label.position = "bottom",
+        nrow = 1,
+        title.position = "top"
+      )
+    ) +
+  theme(
+    legend.spacing = unit(0, "cm"),
+    legend.margin = margin(),
+    legend.position = c(1.01, 1.09),
+    legend.justification = c("right"),
+    legend.box = "horizontal"
+  )
+```
+</div>
+
+# צבעים של הקופסא
+
+
+
+<div style="text-align:left;" dir="ltr">
+```{r echo=TRUE}
+g + 
+  theme(
+    legend.background = 
+      element_rect(
+        fill="lightblue", 
+        size=0.5,
+        linetype="solid"
+        )
+    )
+
+```
+</div>
+
+<div style="text-align:left;" dir="ltr">
+```{r echo=TRUE}
+g + 
+  theme(
+    legend.background = 
+      element_rect(
+        fill = "lightblue", 
+        size = 0.5,
+        linetype = "solid",
+        colour = "darkblue"
+        )
+    )
+
+```
+</div>
+
+<div style="text-align:left;" dir="ltr">
+```{r echo=TRUE}
+gg + 
+  theme(
+    legend.box.background = element_rect(color="red", size=2),
+    legend.box.margin = margin(6, 6, 6, 6)
+)
+```
+</div>
+
+<div style="text-align:left;" dir="ltr">
+```{r echo=TRUE}
+gg + 
+  theme(
+    legend.key = 
+      element_rect(
+        fill = "springgreen",
+        colour = "black"
+        )
+    )
+```
+</div>
+
+
+
+# סדר של הופעת מקראים כאשר יש כמה
+
+בלי פקודת סדר:
+
+<div style="text-align:left;" dir="ltr">
+```{r echo=TRUE}
+gg +
+  labs(
+    title = "title",
+    subtitle = "subtitle",
+    color = "",
+    size = ""
+  ) +
+  
+  guides(
+    color = 
+      guide_legend(
+        label.position = "bottom",
+        nrow = 1,
+        title.position = "top"
+      ),
+    size = 
+      guide_legend(
+        label.position = "bottom",
+        nrow = 1,
+        title.position = "top"
+      )
+    ) +
+  theme(
+    legend.position = c(1.01, 1.09),
+    legend.justification = c("right"),
+    legend.box = "horizontal"
+  )
+```
+</div>
+
+שינוי הסדר
+
+
+
+
+
+<div style="text-align:left;" dir="ltr">
+```{r echo=TRUE}
+gg +
+  labs(
+    title = "title",
+    subtitle = "subtitle",
+    color = "",
+    size = ""
+  ) +
+  
+  guides(
+    color = 
+      guide_legend(
+        order = 1,
+        label.position = "bottom",
+        nrow = 1,
+        title.position = "top"
+      ),
+    size = 
+      guide_legend(
+        order = 2,
+        label.position = "bottom",
+        nrow = 1,
+        title.position = "top"
+      )
+    ) +
+  theme(
+    
+    legend.position = c(1.01, 1.09),
+    legend.justification = c("right"),
+    legend.box = "horizontal"
+  )
+```
+</div>
+
+
+# מחיקת מקראים מרובים
+
+גרף:
+
+
+<div style="text-align:left;" dir="ltr">
+```{r echo=TRUE}
+gg 
+```
+</div>
+
+
+מחיקת גודל
+
+
+<div style="text-align:left;" dir="ltr">
+```{r echo=TRUE}
+gg +
+    guides(
+    size = FALSE
+    )
+
+```
+</div>
+
+# מתקדם
+
+```{r}
+mtcars %>% 
+  as.data.table() %>% 
+  .[,
+    .(
+      mean_hp = mean(hp),
+      top_vs = max(vs)
+    ),
+    by = .(cyl, am)
+    ] %>% 
+  ggplot() +
+  geom_bar(
+    aes(
+      x = cyl,
+      y = mean_hp,
+      fill = factor(am)
+    ),
+    stat = "identity"
+  ) +
+  geom_label(
+    aes(x = cyl,
+        y = 0,
+        label = top_vs,
+        fill = factor(top_vs))
+  )
+
+```
+
+
+
+
+```{r}
+mtcars %>% 
+  as.data.table() %>% 
+  .[,
+    .(
+      mean_hp = mean(hp),
+      top_vs = max(vs)
+    ),
+    by = .(cyl, am)
+    ] %>% 
+  ggplot() +
+  geom_bar(
+    aes(
+      x = cyl,
+      y = mean_hp,
+      fill = factor(am)
+    ),
+    stat = "identity"
+  ) +
+  new_scale_fill() +
+  geom_label(
+    aes(x = cyl,
+        y = 0,
+        label = top_vs,
+        fill = factor(top_vs))
+  )
+
+```
+
+
+
+
+```{r}
+mtcars %>% 
+  as.data.table() %>% 
+  .[,
+    .(
+      mean_hp = mean(hp),
+      top_vs = max(vs)
+    ),
+    by = .(cyl, am)
+    ] %>% 
+  ggplot() +
+  geom_bar(
+    aes(
+      x = cyl,
+      y = mean_hp,
+      fill = factor(am)
+    ),
+    stat = "identity"
+  ) +
+  scale_fill_manual(
+    values = c(
+      "#D68910",
+      "#273746"
+    )
+  ) +
+  new_scale_fill() +
+  geom_label(
+    aes(x = cyl,
+        y = 0,
+        label = top_vs,
+        fill = factor(top_vs))
+  )
+```
+
+
+
+
+```{r}
+mtcars %>% 
+  as.data.table() %>% 
+  .[,
+    .(
+      mean_hp = mean(hp),
+      top_vs = max(vs)
+    ),
+    by = .(cyl, am)
+    ] %>% 
+  ggplot() +
+  geom_bar(
+    aes(
+      x = cyl,
+      y = mean_hp,
+      fill = factor(am)
+    ),
+    stat = "identity"
+  ) +
+  scale_fill_manual(
+    values = c(
+      "#D68910",
+      "#273746"
+    ),
+    name = ""
+  ) +
+  new_scale_fill() +
+  geom_label(
+    aes(x = cyl,
+        y = 0,
+        label = top_vs,
+        fill = factor(top_vs))
+  ) +
+    theme(
+    legend.position = "top"
+  ) +
+  labs(
+    fill = ""
+  ) +
+  scale_fill_manual(
+    values = 
+          c(
+          "#D68910" = "0", 
+          "#D68910" = "1"
+          ), 
+    name = ""
+    )
+```
+
+
+
+
+
+```{r}
+ggg <- 
+mtcars %>% 
+  as.data.table() %>% 
+  .[,
+    .(
+      mean_hp = mean(hp),
+      top_vs = max(vs)
+    ),
+    by = .(cyl, am)
+    ] %>% 
+  ggplot() +
+  geom_bar(
+    aes(
+      x = cyl,
+      y = mean_hp,
+      fill = factor(am)
+    ),
+    stat = "identity"
+  ) +
+  scale_fill_manual(
+    values = c(
+      "#D68910",
+      "#273746"
+    )
+  ) +
+  guides(
+    fill = 
+      guide_legend(
+        label.position = "top",
+        nrow = 1
+      )
+    )
+ 
+ggg
+```
+
+
+
+
+
+```{r}
+ggg +
+  new_scale_fill() +
+  geom_label(
+    aes(x = cyl,
+        y = 0,
+        label = top_vs,
+        fill = factor(top_vs)
+        )
+  )
+
+```
+
+
+
+
+```{r}
+mtcars %>% 
+  as.data.table() %>% 
+  .[,
+    .(
+      mean_hp = mean(hp),
+      top_vs = max(vs)
+    ),
+    by = .(cyl, am)
+    ] %>% 
+  ggplot() +
+  geom_bar(
+    aes(
+      x = cyl,
+      y = mean_hp,
+      fill = factor(am)
+    ),
+    stat = "identity"
+  ) +
+  scale_fill_manual(
+    values = c(
+      "#D68910",
+      "#273746"
+    ),
+    name = ""
+  ) +
+  new_scale_fill() +
+  geom_label(
+    aes(x = cyl,
+        y = 0,
+        label = top_vs,
+        fill = factor(top_vs))
+  ) +
+    theme(
+    legend.margin = margin(),
+    legend.key.size = unit(3, 'lines'),
+    legend.position = "top",
+    legend.justification = c("left")
+  ) +
+  labs(
+    fill = ""
+  ) +
+  scale_fill_manual(
+    values = 
+          c(
+          "#D68910" = "0", 
+          "#D68910" = "1"
+          ), 
+    name = ""
+    )
+```
+```{r}
+mtcars %>% 
+  as.data.table() %>% 
+  .[,
+    .(
+      mean_hp = mean(hp),
+      top_vs = max(vs)
+    ),
+    by = .(cyl, am)
+    ] %>% 
+  ggplot() +
+  geom_bar(
+    aes(
+      x = cyl,
+      y = mean_hp,
+      fill = factor(am)
+    ),
+    stat = "identity"
+  ) +
+  scale_fill_manual(
+    values = c(
+      "#D68910",
+      "#273746"
+    ),
+    name = ""
+  ) +
+  new_scale_fill() +
+  geom_label(
+    aes(x = cyl,
+        y = 0,
+        label = top_vs,
+        fill = factor(top_vs))
+  ) +
+    theme(
+    legend.key.size = unit(3, 'lines'),
+    legend.position = "top",
+    legend.justification = c("left")
+  ) +
+  labs(
+    fill = ""
+  ) +
+  scale_fill_manual(
+    values = 
+          c(
+          "#D68910" = "0", 
+          "#D68910" = "1"
+          ), 
+    name = ""
+    )
+```
+
+
+
+
+
+
+
+
