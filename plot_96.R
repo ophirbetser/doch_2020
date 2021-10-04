@@ -312,5 +312,3 @@ dev.off()       # Clear plots
 cat("\014")     # Clear console 
 rm(list = ls()) # Clear environment                           
 #.rs.restartR() # restart R studio                    
-
-#------------------------------------------------------------------------------#

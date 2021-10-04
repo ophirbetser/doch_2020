@@ -180,6 +180,5 @@ plot_for_97 +
     legend.background = element_rect(fill = NA, colour = NA)
     )
 
-
 invisible(dev.off())
 knitr::include_graphics(file)

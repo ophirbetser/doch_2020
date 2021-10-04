@@ -52,6 +52,9 @@ opts_knit$set(width=100)
 
 # גרף הבסיס
 
+<!-- TODO this is html comment -->
+
+
 <div style="text-align:left;" dir="ltr">
 ```{r echo=TRUE}
 g <- 
