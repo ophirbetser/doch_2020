@@ -1,0 +1,94 @@
+---
+title: "pptx_for_doch_2020"
+author: "Ophir Betser"
+date: "10/18/2021"
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+pacman::p_load(
+            data.table,
+            tidyverse,
+            openxlsx,
+            DT,
+            rvg,
+            shiny,
+            officer,
+            visdat)
+```
+
+```{r}
+plot_gg <- 
+  iris %>% 
+  ggplot() +
+    aes(Sepal.Length,Sepal.Width, color = Species) +
+    geom_point() +
+    theme_bw() +
+    labs(
+      title = "Title",
+      subtitle = "SubTitle",
+      color = ""
+    ) +
+    theme(
+      legend.position = "top"
+    )
+```
+
+```{r}
+heb_text <- "שלום אני כותב עכשיו מלא דברים מטומטמים בעברית בלה בלה בלה בלו אני סופר רק רוצה למלא את הטקסט פה תזרמו איתי אין לי באמת מה לכתוב או לומר אבל אני חייב לראות איך זה יוצא, אז פליז תבינו את זה. תודה רבה על ההתחשבות, אוהב"
+
+short_heb_text <- "זאת אחלה של כותרת משנה, אני ממש חושב שהיא שנונה וגאונית"
+
+long_heb_text <- 
+"השרה מתחה גם ביקורת על השיח הציבורי בנוששנות את השיח, אני חייבת לומר כבת הקהילה שזה כל כך לא הוגן כלפי קהילה שלמה לתת לנו להרג שכביכול יש לנו איזה אקדח על פרים מסתיימים, אמרה.אני לא זוכרת מעקב כזה על עולים מאף מדינה אחרת. לצד זה, הדאגה שלי היא שיעלו יהודים לישראל. אני חושבת שכל עוד המדינה לא לקחה אחריות על הרשימות שהיו במחנות ועל זה שפוצלו משפחות באופן גס, צריך לפתור את זה. זה פשע. אני פוגשת אימהות, אין לי מה לומרלהם,20שנהלתהילדים שלהם- שנתיים של מגפה עולמית שבה למרות כל הקשיים והסגרים והמגבלות, עמדת מול גורמי הבריאות שביקשו לא להכניס ארצה בכלל שום אנשים שהםלא אזרחי המדינה והצלחת בכל זאת להמשיך את העלייה לישראל. איך מה שקודם עמד לנגד עיניי זה התמונות ההיסטוריות, אפילו מלפני קום המדינה, המעפילים שהגיעו ארצה בדרך לא דרך, עליות קשות של אנשים שצעדו ממדינות ועברו מדבריות, כולל אני שעשיתי מסע. בעיניי אין שום משבר בעולם שיכול לעצור עליית יהודים או יהודי שרוצה להגיע הביתה לישראל ושהשערים יהיו סגורים. זה עיקרון בסיסי והממשלה הסכימה איתי. נכון, כשנכנסתי לתפקיד הייתי איזו מדיניות שקטה של עיכוב העלייה, וזה משהו שלא יכולתי לקבל אותו והבאנו את זה לשולחן הממשלה - וגם לממשלה הנוכחית זה היה ברור מאליו עם כל הקשיים והאתגרים שאנחנו נייצר את המתווים הירוקים כךשכליהודישירצהלהגיע והוא בריא, עם הבדיקות הנדרשות, יוכל להגיע לישראל סיבה שאנשים בכלל עלו דווקא בזמן הקורונה אנשים נורמטיביים. אוו רגעים שלא הצטיינו במיוחד. למה הם הגיעו? אני יכולה להגיד לכן שהתשובה העיקרית היא ציונות. לא כדי להיטיב עם עצמם, אנשים יכלו ללכת לכל מדינה אחרת, אבל היהודים בוחרים לבוא הביתה לישראל מהסיבה הפשוטה שבתקופת הקורונה רבים הרגישו שמה שמובן מאליו הוא לא מובן מאליו יותר. הרגישו שהחיים מתערערים ושזה הזמן להגשים חלום. לכן אנחנו רואים גם קפיצה משמעותית השנה, גידול של 30 אחוזים בכמות העולים שהגיעו מתחילת השנה ביחס למה שהיה בשנה הקודמת, וזה מרגש. שלוש השנים האחרונות עלו יותר מ-80 אלף עולים. זאת עיר גדולה במדינת ישר"
+```
+
+
+```{r}
+read_pptx("/Users/ophirbetser/Ophir/doch_2020/doch_2020/pptx_tempalte.pptx") %>%
+      officer::layout_properties()
+```
+
+```{r}
+my_pres <- 
+  read_pptx("/Users/ophirbetser/Ophir/doch_2020/doch_2020/pptx_tempalte.pptx") %>% 
+        remove_slide(index = 1) %>%  
+  
+        add_slide(layout = "front_page", master = "Office Theme") %>% 
+  
+        add_slide(layout = "intro_page", master = "Office Theme") %>% 
+  
+        add_slide(layout = "layout_full_plot", master = "Office Theme") %>% 
+        ph_with(value = "2.1", location = ph_location_label(ph_label = "num")) %>%  
+        ph_with(value = short_heb_text, location = ph_location_label(ph_label = "text")) %>% 
+        ph_with(value = rvg::dml(ggobj = plot_gg, bg = "transparent"), location = ph_location_label(ph_label = "plot")) %>% 
+        ph_with(value = "1", location = ph_location_label(ph_label = "page_number")) %>% 
+  
+        add_slide(layout = "layout_half", master = "Office Theme") %>% 
+        ph_with(value = "2.2", location = ph_location_label(ph_label = "num")) %>%  
+        ph_with(value = heb_text, location = ph_location_label(ph_label = "text")) %>% 
+        ph_with(value = rvg::dml(ggobj = plot_gg, bg = "transparent"), location = ph_location_label(ph_label = "plot")) %>% 
+        ph_with(value = "2", location = ph_location_label(ph_label = "page_number")) %>% 
+
+        add_slide(layout = "layout_75", master = "Office Theme") %>% 
+        ph_with(value = "2.3", location = ph_location_label(ph_label = "num")) %>%  
+        ph_with(value = heb_text, location = ph_location_label(ph_label = "text")) %>% 
+        ph_with(value = rvg::dml(ggobj = plot_gg, bg = "transparent"), location = ph_location_label(ph_label = "plot")) %>% 
+        ph_with(value = "3", location = ph_location_label(ph_label = "page_number")) %>% 
+
+        add_slide(layout = "layout_full_text", master = "Office Theme") %>% 
+        ph_with(value = "2.4", location = ph_location_label(ph_label = "num")) %>%  
+        ph_with(value = short_heb_text, location = ph_location_label(ph_label = "header")) %>% 
+        ph_with(value = long_heb_text, location = ph_location_label(ph_label = "text")) %>% 
+        ph_with(value = "4", location = ph_location_label(ph_label = "page_number")) %>% 
+  
+        add_slide(layout = "empty_page", master = "Office Theme")
+
+
+
+print(my_pres, glue::glue("/Users/ophirbetser/Ophir/doch_2020/pptx_from_R_123.pptx"))
+```
